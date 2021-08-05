@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Paintify</title>
+		<link rel="shortcut icon" type="image/x-icon" href="mememan.png" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
+	</head>
+	<body>
+		<div style="width: 100%;display: block; height: 80px;">
+			<div id="addImageDiv" class="visibleBG">
+				<button onclick="clear();">Clear</button><br>
+				<button onclick="download();">Download</button><br>
+				
+				<label for="penColor">Pen color</label>
+				<input type="color" id="penColor"/><br>
+				
+				<label for="downloadName">Image name: </label>
+				<input type="text" id="downloadName" ><br>
+				
+				<label for="downloadType">Image file type</label>
+				<select id="downloadType">
+					<option value="png">png</option>
+					<option value="jpg">jpg</option>
+				</select>
+			</div>
+		</div>
+		<canvas id="canvas" width="200px" position="absolute" height="200px" style="resize: both; border:2px solid black;"></canvas>
+		<script src="script.js"></script>
+	</body>
+</html>
