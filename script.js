@@ -44,31 +44,63 @@ function getImageSettings() {
 }
 
 //clear canvas
-function clear() {
+async function clearcanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function undo() {
+  try {
+    ctx.putImageData(canvasStates[--curCanvasState], 0, 0);
+  } catch (err) {
+    alert("cant go back further");
+  }
 }
 var lastX;
 var lastY;
+var curCanvasState = 0;
+var canvasStates = [];
+
+function resize() {
+  var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight - 120;
+  canvas.style.top = 120;
+
+  ctx.putImageData(imageData, 0, 0);
+}
+window.addEventListener("resize", resize, false);
+resize();
 
 canvas.addEventListener("mousedown", (event) => {
   mouseDown = true;
   lastX = event.offsetX;
   lastY = event.offsetY;
-  ctx.moveTo(event.offsetX, event.offsetY);
+  canvasStates[curCanvasState++] = ctx.getImageData(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
 });
 canvas.addEventListener("mouseup", (event) => {
   mouseDown = false;
 });
 canvas.addEventListener("mousemove", (event) => {
   if (mouseDown) {
+    var x = event.offsetX;
+    var y = event.offsetY;
+
     ctx.beginPath();
+
     ctx.moveTo(lastX, lastY);
-    ctx.lineTo(event.offsetX, event.offsetY);
+    ctx.lineTo(x, y);
+
     ctx.strokeStyle = penColor.value;
     ctx.stroke();
+
     ctx.closePath();
 
-    lastX = event.offsetX;
-    lastY = event.offsetY;
+    lastX = x;
+    lastY = y;
   }
 });

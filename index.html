@@ -8,25 +8,24 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" />
 	</head>
 	<body>
-		<div style="width: 100%;display: block; height: 80px;">
-			<div id="addImageDiv" class="visibleBG">
-				<button onclick="clear();">Clear</button><br>
-				<button onclick="download();">Download</button><br>
-				
-				<label for="penColor">Pen color</label>
-				<input type="color" id="penColor"/><br>
-				
-				<label for="downloadName">Image name: </label>
-				<input type="text" id="downloadName" ><br>
-				
-				<label for="downloadType">Image file type</label>
-				<select id="downloadType">
-					<option value="png">png</option>
-					<option value="jpg">jpg</option>
-				</select>
-			</div>
+		<div class="header">
+            <button onclick="clearcanvas();">Clear</button>
+            <button onclick="download();">Download</button>
+            <button onclick="undo();">Undo</button><br>
+            
+            <label for="penColor">Pen color</label>
+            <input type="color" id="penColor" value="#ffffff" /><br>
+            
+            <label for="downloadName">Image name: </label>
+            <input type="text" id="downloadName"><br>
+            
+            <label for="downloadType">Image file type</label>
+            <select id="downloadType">
+                <option value="png">png</option>
+                <option value="jpg">jpg</option>
+            </select>
 		</div>
-		<canvas id="canvas" width="200px" position="absolute" height="200px" style="resize: both; border:2px solid black;"></canvas>
+		<canvas id="canvas"></canvas>
 		<script src="script.js"></script>
 	</body>
 </html>
