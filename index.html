@@ -13,7 +13,7 @@
             <button onclick="undo();">Undo</button>
             <button onclick="redo();">Redo</button>
 			<button onclick="switchBackground();">Switch BG</button>
-            <select>
+            <select id="tool" oninput="updateTool(this.value);">
                 <option>Pencil</option>
                 <option>Fill</option>
                 <option>Erase</option>
@@ -30,11 +30,6 @@
             <input type="text" id="downloadName">
 			<br>
             
-            <label for="downloadType">Image file type</label>
-            <select id="downloadType">
-                <option value="png">png</option>
-                <option value="jpg">jpg</option>
-            </select>
 		</div>
 		<img class="backgroundImage" />
 		<canvas id="canvas"></canvas>
