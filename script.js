@@ -77,7 +77,10 @@ var image = ctx.getImageData(
 imageData = image.data;
 
 var targetColor;
-function fill(x, y) {
+async function sleep(milliseconds) {
+	return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+async function fill(x, y) {
 	targetColor = getRGB(ctx.strokeStyle);
 	var image = ctx.getImageData(
 		0,
@@ -85,6 +88,7 @@ function fill(x, y) {
 		canvas.width,
 		canvas.height
 	);
+
 	imageData = image.data;
 	console.log('data length' + imageData.length);
 	var filledPoints = [];
@@ -92,11 +96,15 @@ function fill(x, y) {
 	while (fillPoints.length > 0) {
 		console.log('fill points' + fillPoints.length);
 		console.log('filled points' + filledPoints.length);
-		console.log(fillPoints);
-		var { _fillPoints, _filledPoints } = fillNext(fillPoints, filledPoints);
-		fillPoints = _fillPoints;
-		filledPoints = _filledPoints;
-		console.log(fillPoints);
+		console.log('before ' + fillPoints);
+		var ret = fillNext(fillPoints, filledPoints);
+		fillPoints = ret.fillPoints;
+		filledPoints = ret.filledPoints;
+		console.log(ret);
+		console.log('after ' + fillPoints);
+
+
+		await sleep(1);
 		image.data = imageData;
 		ctx.putImageData(image, 0, 0);
 
@@ -108,7 +116,9 @@ function fill(x, y) {
 	console.log('finished');
 
 }
-async function fillNext(fillPoints, filledPoints) {
+
+
+function fillNext(fillPoints, filledPoints) {
 	var nextFillPoints = [];
 	for (var i = 0; i < fillPoints.length; i++) {
 		if (canFill(fillPoints[i], filledPoints)) {
@@ -126,7 +136,8 @@ async function fillNext(fillPoints, filledPoints) {
 			if (canFill(down, filledPoints)) nextFillPoints.push(down);
 		}
 	}
-	return { nextFillPoints, filledPoints };
+	console.log(nextFillPoints + " dea " + filledPoints);
+	return { fillPoints: nextFillPoints, filledPoints: filledPoints };
 }
 async function updateCan() {
 	image.data = imageData;
