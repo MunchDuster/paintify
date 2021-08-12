@@ -12,6 +12,7 @@
             <button onclick="download();">Download</button>
             <button onclick="undo();">Undo</button>
             <button onclick="redo();">Redo</button>
+			<button onclick="switchBackground();">Switch BG</button>
             <select>
                 <option>Pencil</option>
                 <option>Fill</option>
@@ -20,11 +21,14 @@
             <br>
             
             <label for="penColor">Pen color</label>
-            <input type="color" id="penColor" value="#ffffff" /><br>
-            <input type="color" id="background-color" value="#555555" /><br>
+            <input type="color" id="penColor" value="#ffffff" />
+			<br>
+            <input type="number" id="line-thickness" oninput="lineThickness = this.value;" />
+			<br>
             
             <label for="downloadName">Image name: </label>
-            <input type="text" id="downloadName"><br>
+            <input type="text" id="downloadName">
+			<br>
             
             <label for="downloadType">Image file type</label>
             <select id="downloadType">
@@ -32,6 +36,7 @@
                 <option value="jpg">jpg</option>
             </select>
 		</div>
+		<img class="backgroundImage" />
 		<canvas id="canvas"></canvas>
 		<script src="script.js"></script>
 	</body>
