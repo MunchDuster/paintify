@@ -55,10 +55,17 @@ function undo() {
     alert("cant go back further");
   }
 }
+function redo() {
+  try {
+    ctx.putImageData(canvasStates[curCanvasState++], 0, 0);
+  } catch (err) {
+    alert("cant go forward further");
+  }
+}
 var lastX;
 var lastY;
 var curCanvasState = 0;
-var canvasStates = [];
+var canvasStates = [ctx.getImageData(0, 0, canvas.width, canvas.height)];
 
 function resize() {
   var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -75,15 +82,15 @@ canvas.addEventListener("mousedown", (event) => {
   mouseDown = true;
   lastX = event.offsetX;
   lastY = event.offsetY;
-  canvasStates[curCanvasState++] = ctx.getImageData(
+});
+canvas.addEventListener("mouseup", (event) => {
+  mouseDown = false;
+  canvasStates[++curCanvasState] = ctx.getImageData(
     0,
     0,
     canvas.width,
     canvas.height
   );
-});
-canvas.addEventListener("mouseup", (event) => {
-  mouseDown = false;
 });
 canvas.addEventListener("mousemove", (event) => {
   if (mouseDown) {

@@ -4,7 +4,7 @@ canvas {
   left: 0px;
   padding: 0px;
   top: 0px;
-  background-color: black;
+  background-image: url("background.png");
 }
 .header {
   background-color: rgb(69, 69, 69);
